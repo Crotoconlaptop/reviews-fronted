@@ -37,7 +37,7 @@ export default function PlaceDetails() {
     if (!place) {
         return (
             <div className="min-h-screen bg-gradient-to-br from-black via-gray-800 to-black text-white flex items-center justify-center">
-                <p className="text-yellow-300 text-lg">Cargando detalles del lugar...</p>
+                <p className="text-yellow-300 text-lg">Loading place details...</p>
             </div>
         );
     }
@@ -48,12 +48,12 @@ export default function PlaceDetails() {
                 onClick={() => navigate(-1)}
                 className="mb-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
             >
-                Volver
+              Back
             </button>
             <h1 className="text-4xl font-bold text-yellow-500 mb-6">{place.name}</h1>
             <div className="bg-gray-900 p-4 rounded-lg shadow-md mb-6">
                 <p className="text-lg">
-                    <span className="font-semibold text-yellow-400">Dirección:</span> {place.address || 'No especificada'}
+                    <span className="font-semibold text-yellow-400">Address:</span> {place.address || 'No especificada'}
                     <button
                         onClick={handleCopyAddress}
                         className="ml-4 px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
@@ -63,13 +63,13 @@ export default function PlaceDetails() {
                 </p>
                 {copySuccess && <p className="text-green-400 text-sm mt-2">{copySuccess}</p>}
                 <p className="text-lg mt-2">
-                    <span className="font-semibold text-yellow-400">Ciudad:</span> {place.city}
+                    <span className="font-semibold text-yellow-400">City:</span> {place.city}
                 </p>
                 <p className="text-lg mt-2">
-                    <span className="font-semibold text-yellow-400">Total de Votos:</span> {totalVotes > 0 ? totalVotes : 'Aún no hay votos'}
+                    <span className="font-semibold text-yellow-400">Total Votes:</span> {totalVotes > 0 ? totalVotes : 'Aún no hay votos'}
                 </p>
             </div>
-            <h2 className="text-3xl font-semibold text-green-400 mb-4">Promedios por Categoría</h2>
+            <h2 className="text-3xl font-semibold text-green-400 mb-4">Averages by Category</h2>
             <ul className="space-y-4">
                 {categoryAverages.map((category, index) => (
                     <li
@@ -77,7 +77,7 @@ export default function PlaceDetails() {
                         className="bg-gray-800 p-4 rounded-lg shadow-md hover:bg-gray-700 transition"
                     >
                         <p className="font-semibold text-yellow-300">{category.category}</p>
-                        <p className="text-lg text-green-300">Promedio: {category.average}</p>
+                        <p className="text-lg text-green-300">Average: {category.average}</p>
                     </li>
                 ))}
             </ul>
