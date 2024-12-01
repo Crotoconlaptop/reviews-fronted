@@ -24,10 +24,15 @@ export default function PlaceDetails() {
         fetchDetails();
     }, [placeId]);
 
-    const handleCopy = (text, label) => {
-        navigator.clipboard.writeText(text).then(() => {
-            alert(`${label} copied to clipboard`);
-        });
+    const handleCopyAll = () => {
+        if (place) {
+            const concatenatedData = `${place.name} | ${place.city} | ${place.address}`;
+            navigator.clipboard.writeText(concatenatedData).then(() => {
+                alert('Name, City, and Address copied to clipboard');
+            }).catch((err) => {
+                console.error('Error copying data:', err);
+            });
+        }
     };
 
     if (!place) {
@@ -53,43 +58,34 @@ export default function PlaceDetails() {
                     <p className="text-lg">
                         <span className="font-semibold text-yellow-400">Name:</span> {place.name}
                     </p>
-                    <button
-                        onClick={() => handleCopy(place.name, 'Name')}
-                        className="px-2 py-1 bg-yellow-500 text-black rounded-lg hover:bg-yellow-600 transition"
-                    >
-                        Copy
-                    </button>
                 </div>
                 {/* Address */}
                 <div className="flex items-center space-x-2">
                     <p className="text-lg">
                         <span className="font-semibold text-yellow-400">Address:</span> {place.address}
                     </p>
-                    <button
-                        onClick={() => handleCopy(place.address, 'Address')}
-                        className="px-2 py-1 bg-yellow-500 text-black rounded-lg hover:bg-yellow-600 transition"
-                    >
-                        Copy
-                    </button>
                 </div>
                 {/* City */}
                 <div className="flex items-center space-x-2">
                     <p className="text-lg">
                         <span className="font-semibold text-yellow-400">City:</span> {place.city}
                     </p>
+                </div>
+                {/* Copy all button */}
+                <div className="flex items-center justify-start">
                     <button
-                        onClick={() => handleCopy(place.city, 'City')}
-                        className="px-2 py-1 bg-yellow-500 text-black rounded-lg hover:bg-yellow-600 transition"
+                        onClick={handleCopyAll}
+                        className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
                     >
-                        Copy
+                        Copy Name, City, and Address
                     </button>
                 </div>
                 {/* Total Votes */}
-                <p className="text-lg mt-2">
+                <p className="text-lg mt-4">
                     <span className="font-semibold text-yellow-400">Total Votes:</span> {totalVotes > 0 ? totalVotes : 'No votes yet'}
                 </p>
             </div>
-            <h2 className="text-3xl font-semibold text-green-400 mb-4">Average by categories</h2>
+            <h2 className="text-3xl font-semibold text-green-400 mb-4">Average by Categories</h2>
             <ul className="space-y-4">
                 {categoryAverages.map((category, index) => (
                     <li
