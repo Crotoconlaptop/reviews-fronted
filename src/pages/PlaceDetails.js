@@ -24,15 +24,10 @@ export default function PlaceDetails() {
         fetchDetails();
     }, [placeId]);
 
-    const handleCopyAll = () => {
-        if (place) {
-            const concatenatedData = `${place.name} | ${place.city} | ${place.address}`;
-            navigator.clipboard.writeText(concatenatedData).then(() => {
-                alert('Copied: Name, City, and Address');
-            }).catch((err) => {
-                console.error('Error copying data:', err);
-            });
-        }
+    const handleCopy = (text, label) => {
+        navigator.clipboard.writeText(text).then(() => {
+            alert(`${label} copied to clipboard`);
+        });
     };
 
     if (!place) {
@@ -52,23 +47,60 @@ export default function PlaceDetails() {
                 Back
             </button>
             <h1 className="text-4xl font-bold text-yellow-500 mb-6">{place.name}</h1>
-            <div className="bg-gray-900 p-4 rounded-lg shadow-md mb-6">
-                <p className="text-lg">
-                    <span className="font-semibold text-yellow-400">Address:</span> {place.address}
-                </p>
-                <p className="text-lg mt-2">
-                    <span className="font-semibold text-yellow-400">City:</span> {place.city}
-                </p>
+            <div className="bg-gray-900 p-4 rounded-lg shadow-md mb-6 space-y-4">
+                {/* Name */}
+                <div className="flex items-center space-x-2">
+                    <p className="text-lg">
+                        <span className="font-semibold text-yellow-400">Name:</span> {place.name}
+                    </p>
+                    <button
+                        onClick={() => handleCopy(place.name, 'Name')}
+                        className="px-2 py-1 bg-yellow-500 text-black rounded-lg hover:bg-yellow-600 transition"
+                    >
+                        Copy
+                    </button>
+                </div>
+                {/* Address */}
+                <div className="flex items-center space-x-2">
+                    <p className="text-lg">
+                        <span className="font-semibold text-yellow-400">Address:</span> {place.address}
+                    </p>
+                    <button
+                        onClick={() => handleCopy(place.address, 'Address')}
+                        className="px-2 py-1 bg-yellow-500 text-black rounded-lg hover:bg-yellow-600 transition"
+                    >
+                        Copy
+                    </button>
+                </div>
+                {/* City */}
+                <div className="flex items-center space-x-2">
+                    <p className="text-lg">
+                        <span className="font-semibold text-yellow-400">City:</span> {place.city}
+                    </p>
+                    <button
+                        onClick={() => handleCopy(place.city, 'City')}
+                        className="px-2 py-1 bg-yellow-500 text-black rounded-lg hover:bg-yellow-600 transition"
+                    >
+                        Copy
+                    </button>
+                </div>
+                {/* Total Votes */}
                 <p className="text-lg mt-2">
                     <span className="font-semibold text-yellow-400">Total Votes:</span> {totalVotes > 0 ? totalVotes : 'No votes yet'}
                 </p>
-                <button
-                    onClick={handleCopyAll}
-                    className="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
-                >
-                    Copy Name, City, and Address
-                </button>
             </div>
+            <h2 className="text-3xl font-semibold text-green-400 mb-4">Average by categories</h2>
+            <ul className="space-y-4">
+                {categoryAverages.map((category, index) => (
+                    <li
+                        key={index}
+                        className="bg-gray-800 p-4 rounded-lg shadow-md hover:bg-gray-700 transition"
+                    >
+                        <p className="font-semibold text-yellow-300">{category.category}</p>
+                        <p className="text-lg text-green-300">Average: {category.average}</p>
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }
