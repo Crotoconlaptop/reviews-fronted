@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000/api/places';
+const BASE_URL = 'https://reviews-backend-j9gg.onrender.com/api/places';
 
 // Agregar un nuevo lugar
 export const addPlace = async (placeData) => {
