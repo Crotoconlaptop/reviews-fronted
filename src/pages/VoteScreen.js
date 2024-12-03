@@ -40,9 +40,9 @@ export default function VoteScreen() {
         const pastedData = e.clipboardData.getData('text').split('|');
         if (pastedData.length === 3) {
             setForm({
-                name: pastedData[0].trim(),
-                city: pastedData[1].trim(),
-                address: pastedData[2].trim(),
+                name: pastedData[0].trim().toLowerCase(),
+                city: pastedData[1].trim().toLowerCase(),
+                address: pastedData[2].trim().toLowerCase(),
             });
         } else {
             alert('Invalid format! Please paste the copied Name | City | Address.');
