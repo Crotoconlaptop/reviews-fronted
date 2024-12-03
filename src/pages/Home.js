@@ -14,7 +14,7 @@ export default function Home() {
                 setTopPlaces(topPlaces);
                 setBottomPlaces(bottomPlaces);
             } catch (error) {
-                console.error('Error al cargar el ranking:', error);
+                console.error('Error loading ranking:', error);
             }
         };
 
@@ -25,9 +25,24 @@ export default function Home() {
         <div className="min-h-screen bg-gradient-to-br from-black via-gray-800 to-black text-white overflow-x-hidden overflow-y-auto">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <header className="text-center mb-8">
+                    <div className="bg-gray-900 text-yellow-300 p-4 rounded-lg shadow-md mb-6">
+                        <h2 className="text-2xl font-bold mb-2">How to Use the App</h2>
+                        <ol className="list-decimal list-inside text-left">
+                            <li>Search the lists below for the place you want to review.</li>
+                            <li>
+                                If the place exists, click on it to copy its details (name, city, and address).
+                            </li>
+                            <li>
+                                Go to the "Add Voting" section and paste the copied details to avoid duplicate entries.
+                            </li>
+                            <li>
+                                If the place doesn't exist, click "Add Voting" to create a new entry.
+                            </li>
+                        </ol>
+                        <p className="mt-2">Thank you for helping improve workplace transparency!</p>
+                    </div>
                     <p className="mt-4 text-lg md:text-xl text-yellow-400 max-w-3xl mx-auto">
-                        Share and review your work experiences. Explore the best and worst workplaces based on
-                        community ratings. Your voice matters, contribute to improving the work environment for everyone.
+                        Discover the best and worst workplaces. Vote anonymously to improve workplaces for everyone.
                     </p>
                     <h1 className="text-5xl font-bold text-yellow-500">Anonymous Reviews</h1>
                     <button

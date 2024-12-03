@@ -12,7 +12,7 @@ const categories = [
     { id: 'MARKETING', description: 'MARKETING: evaluates whether they maintain respectful, clear, and professional communication with colleagues from other sectors. 1 star = poor, 5 stars = outstanding communication' },
     { id: 'EMPLOYEE DINING ROOM', description: 'EMPLOYEE DINING ROOM: assesses the staff’s attitude towards employees from other departments and the quality of the food provided. 1 star = bad food, 5 stars = great food' },
     { id: 'QUALITY OF THE GUEST', description: 'QUALITY OF THE GUEST: evaluates whether guests are respectful, well-mannered, and professional, or if they exhibit rude, vulgar, or inappropriate behavior. 1 star = rude, 5 stars = professional' },
-    { id: 'HONESTY', description: 'HONESTY: assesses whether the company keeps its promises (e.g., growth opportunities) and whether there are issues like employee theft or dishonesty. 1 star = dishonest, 5 stars = very trustworthy' },
+    { id: 'HONESTY', description: 'HONESTY: assesses whether the company keeps its promises (e.g., growth opportunities, schedules) and whether there are issues like employee theft or dishonesty. 1 star = dishonest, 5 stars = very trustworthy' },
     { id: 'DISCRIMINATION', description: 'DISCRIMINATION: evaluates whether employees feel discriminated against in any form, fostering an environment of equality and inclusion. 1 star = discriminatory, 5 stars = inclusive' },
     { id: 'ANIMAL ABUSE', description: 'ANIMAL ABUSE: assesses whether employees handle animals responsibly and ensure they are treated humanely, without causing harm. 1 star = abusive, 5 stars = humane treatment' },
     { id: 'ACCOMMODATION', description: 'ACCOMMODATION: evaluates the living spaces and the staff behavior. 1 star = poor accommodation, 5 stars = excellent.' },
@@ -89,32 +89,39 @@ export default function VoteScreen() {
     const handleSubmit = async () => {
         const totalCategories = categories.length;
         const totalResponses = Object.keys(ratings).length + omittedCategories.size;
-
+    
         if (!form.name || !form.city || !form.address) {
             setErrorMessage('Please fill in all the required fields (Name, City, and Address).');
             return;
         }
-
+    
         if (totalResponses !== totalCategories) {
             setErrorMessage('Please rate or omit every category before submitting.');
             return;
         }
-
+    
         try {
             const { place } = await addPlace(form);
-
+    
             const submittedRatings = categories.map((category) =>
                 omittedCategories.has(category.id) ? null : ratings[category.id]
             );
-
+    
             await ratePlace(place.id, submittedRatings);
             alert('Thank you for your feedback!');
             navigate('/');
         } catch (error) {
             console.error('Error submitting the evaluation:', error);
-            alert('The evaluation could not be submitted.');
+    
+            // Extract backend error message
+            if (error.response) {
+                setErrorMessage(error.response.data.error || 'An unknown error occurred.');
+            } else {
+                setErrorMessage('You can only vote once every 3 months for this place.');
+            }
         }
     };
+    
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-black via-gray-800 to-black text-white p-6">

@@ -53,25 +53,21 @@ export default function PlaceDetails() {
             </button>
             <h1 className="text-4xl font-bold text-yellow-500 mb-6">{place.name}</h1>
             <div className="bg-gray-900 p-4 rounded-lg shadow-md mb-6 space-y-4">
-                {/* Name */}
                 <div className="flex items-center space-x-2">
                     <p className="text-lg">
                         <span className="font-semibold text-yellow-400">Name:</span> {place.name}
                     </p>
                 </div>
-                {/* Address */}
                 <div className="flex items-center space-x-2">
                     <p className="text-lg">
                         <span className="font-semibold text-yellow-400">Address:</span> {place.address}
                     </p>
                 </div>
-                {/* City */}
                 <div className="flex items-center space-x-2">
                     <p className="text-lg">
                         <span className="font-semibold text-yellow-400">City:</span> {place.city}
                     </p>
                 </div>
-                {/* Copy all button */}
                 <div className="flex items-center justify-start">
                     <button
                         onClick={handleCopyAll}
@@ -80,7 +76,6 @@ export default function PlaceDetails() {
                         Copy Name, City, and Address
                     </button>
                 </div>
-                {/* Total Votes */}
                 <p className="text-lg mt-4">
                     <span className="font-semibold text-yellow-400">Total Votes:</span> {totalVotes > 0 ? totalVotes : 'No votes yet'}
                 </p>
